@@ -2,40 +2,61 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryContainer = document.querySelector('.gallery');
+const loadMoreBtn = document.querySelector('.load-more');
+const loaderEl = document.querySelector('.loader');
+const loadingText = document.querySelector('.text-loading');
 
-let lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
+// ========== МОДАЛЬНЕ ВІКНО ЗА ДОПОМОГОЮ SIMPLELIGHTBOX ==========
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
 });
 
+// ========== СТВОРЕННЯ РОЗМІТКИ ==========
 export function createGallery(images) {
-    const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+  const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
     return `
-        <li class="gallery-item">
-            <a href="${largeImageURL}">
-                <img src="${webformatURL}" alt="${tags}" title="${tags}" />
-            </a>
+      <li class="gallery-item">
+        <a href="${largeImageURL}">
+          <img src="${webformatURL}" alt="${tags}" title="${tags}" />
+        </a>
         <div class="img-container">
-            <div class="stats">
-                <p><strong>Likes:</strong> ${likes}</p>
-                <p><strong>Views:</strong> ${views}</p>
-                <p><strong>Comments:</strong> ${comments}</p>
-                <p><strong>Downloads:</strong> ${downloads}</p>
-            </div>
+          <div class="stats">
+            <p><strong>Likes:</strong> ${likes}</p>
+            <p><strong>Views:</strong> ${views}</p>
+            <p><strong>Comments:</strong> ${comments}</p>
+            <p><strong>Downloads:</strong> ${downloads}</p>
+          </div>
         </div>
-        </li>`;
-    }).join('');
-        galleryContainer.insertAdjacentHTML('afterbegin', markup);
-    lightbox.refresh();
+      </li>`;
+  }).join('');
+  galleryContainer.insertAdjacentHTML('beforeend', markup);
+  lightbox.refresh();
 }
 
+// ========== ВИДАЛЕННЯ РОЗМІТКИ ==========
 export function clearGallery() {
-    galleryContainer.innerHTML = '';
+  galleryContainer.innerHTML = '';
 }
 
+// ========== ВІДОБРАЖЕННЯ ЛОДЕРА ТА ТЕКСТУ ==========
 export function showLoader() {
-    document.querySelector('.loader').classList.add('is-active');
+  loaderEl.classList.add('is-active');
+  loadingText.style.display = 'block';
 }
+
+// ========== ПРИХОВУВАННЯ ЛОДЕРА ТА ТЕКСТУ ==========
 export function hideLoader() {
-    document.querySelector('.loader').classList.remove('is-active');
+  loaderEl.classList.remove('is-active');
+  loadingText.style.display = 'none';
+}
+
+// ========== ВІДОБРАЖЕННЯ КНОПКИ "ЗАВАНТАЖИТИ ЩЕ" ==========
+export function showLoadMoreButton() {
+  loadMoreBtn.classList.add('is-active');
+}
+
+// ========== ПРИХОВУВАННЯ КНОПКИ "ЗАВАНТАЖИТИ ЩЕ" ==========
+export function hideLoadMoreButton() {
+  loadMoreBtn.classList.remove('is-active');
 }

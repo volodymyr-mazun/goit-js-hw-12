@@ -1,4 +1,11 @@
+
 /*==========GLOBAL SETINGS==========*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 h1,
 h2,
 h3,
@@ -41,13 +48,17 @@ img {
     padding: 0 16px;
 }
 
-/*==========STYLE FORM==========*/
+body {
+    background-color: #fff;
+}
+
+/*==========IMAGE LAYOUT STYLE==========*/
 .wraper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 36px 0;
+    padding: 36px 0 44px;
 }
 
 .form {
@@ -65,6 +76,7 @@ img {
     align-items: center;
     flex-wrap: wrap;
     gap: 24px;
+    margin-bottom: 32px;
 }
 
 .gallery-item {
@@ -86,11 +98,12 @@ img {
     object-fit: cover;
 }
 
+/*==========CATEGORY PLACEMENT==========*/
 .stats {
     display: flex;
     justify-content: space-between;
 
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.33;
     letter-spacing: 0.04em;
     color: #2e2f42;
@@ -100,6 +113,7 @@ img {
     margin: 0;
 }
 
+/*==========STYLE INPUT==========*/
 input[type="text"] {
     background-color: transparent;
     width: 272px;
@@ -117,6 +131,17 @@ input[type="text"] {
     color: #808080;
 }
 
+input[type="text"]:hover {
+    border: 1px solid #000;
+}
+
+input[type="text"]:focus {
+    border-color: #4e75ff;
+    outline: none;
+    color: #2e2f42;
+}
+
+/*==========STYLE BUTTON==========*/
 button[type="submit"] {
     background-color: #4e75ff;
     width: 91px;
@@ -136,20 +161,54 @@ button[type="submit"] {
     color: #fff;
 }
 
-input[type="text"]:hover {
-    border: 1px solid #000;
-}
-
 button[type="submit"]:hover {
     background-color: #6c8cff;
 }
 
-input[type="text"]:focus {
-    border-color: #4e75ff;
-    outline: none;
+/*==========TEXT LOADING==========*/
+.text-loading {
+    position: fixed;
+    top: 108px;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    display: none;
+    z-index: 9999;
+
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
     color: #2e2f42;
 }
 
+/*==========BUTTON LOAD MORE==========*/
+.load-more {
+    background-color: #4e75ff;
+    width: 125px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    display: none;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+        
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: #fff;
+}
+
+.load-more:hover {
+    background-color: #6c8cff;
+}
+
+.is-active {
+    display: block;
+}
+/*==========LOADER==========*/
 .loader {
     display: none;
     position: fixed;
@@ -165,16 +224,22 @@ input[type="text"]:focus {
     z-index: 9999;
 }
 
-.loader.is-active {
-    display: block;
-}
-
 @keyframes spin {
     0% {
-        transform: translate(-50%, -50%) rotate(0deg);
+        transform: rotate(0deg);
     }
-
     100% {
-        transform: translate(-50%, -50%) rotate(360deg);
+        transform: rotate(360deg);
     }
 }
+
+/*==========TEXT==========*/
+.end-of-results {
+    display: none; 
+    color: red; 
+    font-weight: bold; 
+    margin-top: 10px;
+}
+
+
+
