@@ -1,7 +1,7 @@
 
 // ========== IMPORT MODULES ==========
 import { getImagesByQuery } from './js/pixabay-api.js';
-import { createGallery, clearGallery, showLoader, hideLoader, showLoadMoreButton, hideLoadMoreButton } from './js/render-function.js';
+import { createGallery, clearGallery, showLoader, hideLoader, showLoadMoreButton, hideLoadMoreButton } from './js/render-functions.js';
 
 // ========== IZI TOAST ==========
 import iziToast from 'izitoast';
