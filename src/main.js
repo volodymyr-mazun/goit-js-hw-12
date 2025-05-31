@@ -8,17 +8,16 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 // ========== DOM-ELEMENTS ==========
-const form = document.querySelector('.form');
-const input = form.querySelector('input[name="search-text"]');
-const loadMoreBtn = document.querySelector('.load-more');
-const cards = document.querySelectorAll('.gallery-item');
+const form = document.querySelector('.form');                   //форма
+const input = form.querySelector('input[name="search-text"]');  //поле для запиту
+const loadMoreBtn = document.querySelector('.load-more');       //кнопка завантажити ще
 
 // ========== ГЛОБАЛЬНІ ЗМІННІ ==========
-let currentPage = 1;
-let currentQuery = '';
-let totalHits = 0;
-let imagesLoaded = 0;
-let lastCardHeight = 0;
+let currentPage = 1;                                            //номер поточної сторінки
+let currentQuery = '';                                          //збереження останнього пошукового запиту
+let totalHits = 0;                                              //загальна кількість знайдених елементів
+let imagesLoaded = 0;                                           //кількість завантажених елементів
+let lastCardHeight = 0;                                         //збереження висити останнього елемента
 
 // ========== РОБОТА З ФОРМОЮ ==========
 form.addEventListener('submit', async (e) => {
@@ -27,21 +26,22 @@ form.addEventListener('submit', async (e) => {
 
   currentPage = 1;
   imagesLoaded = 0;
-  clearGallery();
-  showLoadMoreButton();
+  clearGallery();                                               //очищення сторінки
+  showLoadMoreButton();                                         //кнопка "Load more"
 
   await fetchAndRender();
 });
 
 // ========== КНОПКА LOAD MORE ==========
-loadMoreBtn.addEventListener('click', async () => {
+loadMoreBtn.addEventListener('click', async () => {            //лічильник, для подальшого завантаження
   currentPage += 1;
   await fetchAndRender();
 });
 
 // ========== MAIN FUNCTION ==========
 async function fetchAndRender() {
-  showLoader();
+
+showLoader();                                                  //анімація завантаження
 
 try {
   const { images, totalHits: total } = await getImagesByQuery(currentQuery, currentPage);
@@ -62,16 +62,18 @@ if (images.length === 0 && currentPage === 1) {
     return;
 }
 
-// ========== ОНОВЛЕННЯ ЛІЧИЛЬНИКА ==========
+// ========== ПРОДОВЖЕННЯ ЗАВАНТАЖЕННЯ ==========
 createGallery(images);
   imagesLoaded += images.length;
 
-// ========== ВИСТОТА ОСТАННЬОЇ КАРТКИ ТА ПРОКРУТКА ==========
+  // ========== ВИСОТА ОСТАННЬОЇ КАРТКИ ТА ПРОКРУТКА ==========
+const cards = document.querySelectorAll('.gallery-item');                   //елемент списку
+
 if (cards.length > 0) {
-  lastCardHeight = cards[cards.length - 1].getBoundingClientRect().height;
-    window.scrollBy({
-    top: lastCardHeight * 2,
-    behavior: 'smooth'
+  lastCardHeight = cards[cards.length - 1].getBoundingClientRect().height;  //останній елемент та його точна висота
+    window.scrollBy({                                                       //прокручування сторінки до низу
+    top: lastCardHeight * 2,                                                //висота прокручування на дві картки
+    behavior: 'smooth'                                                      //мяке прокручування
   });
 }
 
@@ -85,9 +87,9 @@ if (imagesLoaded >= totalHits) {
     maxWidth: '432px',
     timeout: 3000,
   });
-    hideLoadMoreButton();
+    hideLoadMoreButton();                                                   //сховати копку, якщо закінчились елементи
   } else {
-    showLoadMoreButton();
+    showLoadMoreButton();                                                   //відобразити кнопку у випадку фіктивності перевірки
 }
 
 // ========== ОБРОБКА ПОМИЛКИ ==========
