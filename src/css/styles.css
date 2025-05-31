@@ -198,7 +198,7 @@ button[type="submit"]:hover {
     left: 0;
     text-align: center;
     padding: 10px 20px;
-    background-color: #fff;
+    background-color: transparent;
     border-radius: 5px;
     display: none;
     z-index: 9999;
@@ -239,14 +239,3 @@ button[type="submit"]:hover {
 .loader.is-active {
     display: inline-block;
 }
-
-/*==========TEXT==========*/
-.end-of-results {
-    display: none; 
-    color: red; 
-    font-weight: bold; 
-    margin-top: 10px;
-}
-
-
-
