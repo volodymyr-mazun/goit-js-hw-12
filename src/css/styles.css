@@ -193,7 +193,8 @@ button[type="submit"]:hover {
 
 /*==========TEXT LOADING==========*/
 .text-loading {
-    position: absolute;
+    /* position: absolute; */
+    margin-bottom: 20px;
     width: 100%;
     left: 0;
     text-align: center;

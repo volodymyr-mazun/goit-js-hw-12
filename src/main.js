@@ -24,12 +24,25 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   currentQuery = input.value.trim();
 
+// ========== ПЕРЕВІРКА НА ПУСТЕ ПОЛЕ ==========
+if (!currentQuery) {
+  iziToast.warning({
+    title: 'Empty search',
+    message: 'Please enter a search term.',
+    position: 'topRight',
+    backgroundColor: ' #ef4040',
+    messageColor: ' #fafafb',
+    maxWidth: '432px',
+    timeout: 3000,
+  });
+  return;
+}
   currentPage = 1;
   imagesLoaded = 0;
   clearGallery();                                               //очищення сторінки
-  showLoadMoreButton();                                         //кнопка "Load more"
+  hideLoadMoreButton();                                         //приховати кнопку
 
-  await fetchAndRender();
+  await fetchAndRender(); 
 });
 
 // ========== КНОПКА LOAD MORE ==========
@@ -40,8 +53,7 @@ loadMoreBtn.addEventListener('click', async () => {            //лічильн�
 
 // ========== MAIN FUNCTION ==========
 async function fetchAndRender() {
-
-showLoader();                                                  //анімація завантаження
+  showLoader();                                                //анімація завантаження
 
 try {
   const { images, totalHits: total } = await getImagesByQuery(currentQuery, currentPage);
@@ -107,4 +119,3 @@ if (imagesLoaded >= totalHits) {
     hideLoader();
   }
 }
-
